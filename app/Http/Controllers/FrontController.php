@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Post;
-use App\Category;
+
+
 
 class FrontController extends Controller
 {
@@ -37,6 +39,19 @@ class FrontController extends Controller
         return  view('front.type', ['posts' => $posts, 'type' => $type]);  
     }
 
+    public function search()
+    {
+        $search = Input::get('search');
+    
+        $user = Post::where('post_type', 'LIKE', '%' .$search. '%')
+            ->orWhere('description', 'LIKE', '%' .$search. '%')->paginate(10);
+        if (count($user) > 0) {
+            return view('front.search',['user' => $user])->withDetails($user)->withQuery($search);
+        } else { 
+            return view('front.search')->withMessage('No Details found. Try to search again !');
+        }
+
+    }
     
 
 

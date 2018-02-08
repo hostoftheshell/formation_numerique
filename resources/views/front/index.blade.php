@@ -23,7 +23,7 @@
                                     <p>{{$post->started}}</p>
                                     <p>{{$post->ended}}</p>
                                 </div>
-                                <div class="col-8 col-sm-6" style="">
+                                <div class="col-8 col-sm-8" style="">
                                     <p>Nombre d'inscrits : {{$post->student_max}}/25</p>
                                     <p>TARIF : {{$post->price}} &euro;
                                         <em>HT</em>
@@ -41,8 +41,18 @@
                 @endforelse
             </ul>
         </div>
-        <div class="col-12 col-md-2">
-            <p>(moteur de recherche)</p>
+        <div class="col-md-4">
+        <form action="search" method="POST" role="search">
+    {{ csrf_field() }}
+    <div class="input-group">
+        <input type="text" class="form-control" name="search"
+            placeholder="Search users"> <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+    </div>
+</form>
         </div>
     </div>
 </div>
