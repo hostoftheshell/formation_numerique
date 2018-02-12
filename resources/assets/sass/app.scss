@@ -1,9 +1,26 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+//@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Alfa+Slab+One|Inconsolata|Karla");
 
 // Variables
 @import "variables";
+$font-family-sans-serif: "|Alfa+Slab+One", sans-serif;
+$brand-primary: #213FD0;
+$text-color: #1977CC;
+$body-bg: #DFF3FB;
+
+
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+h1 {
+    font-family: 'Alfa Slab One', cursive;
+}
+h2, h3, h4 {
+ font-family : "Karla", sans-serif;
+}
+.list-group-item {
+    background-color: #FCF979;
+}
+

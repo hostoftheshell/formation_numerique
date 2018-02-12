@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Picture extends Model
 {
+
+    protected $fillable 
+        =[
+        'link',
+        'title'
+        ];
+    
     /**
      * Owns post_id foreign key
      * 

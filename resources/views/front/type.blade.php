@@ -1,7 +1,7 @@
 @extends('layouts.master') @section('content')
-<h1>Nos {{$type}}s</h1>
-{{$posts->links()}}
 <div class=container>
+<h1 class="mb-2 text-center">Nos {{(ucfirst($type))}}s</h1>
+    {{$posts->links()}}
     <div class="row">
         <div class="col-12 col-md-8">
             <ul class="list-group">
@@ -19,8 +19,8 @@
                                 <h3>{{$post->post_type}}</h3>
                             </a>
                             <div class="row">
-                                <div class="col-8 col-sm-4">
-                                    <p>{{$post->started}}</p>
+                                <div class="col-md-6">
+                                    <h4>Date de début :</h4> {{$post->started}}
                                 </div>
                             </div>
                         </div>
@@ -34,10 +34,9 @@
                 @endforelse
             </ul>
         </div>
-        <div class="col-12 col-md-2">
-            <p>(moteur de recherche)</p>
+        <div class="col-md-3">
+            @include('partials.search')
         </div>
     </div>
 </div>
-
 @endsection

@@ -1,9 +1,7 @@
 @extends('layouts.master') @section('content')
-
-<h1>FORMATIONS &amp; STAGES D'AVENIR</h1>
-
-{{$posts->links()}}
 <div class=container>
+<h1 class="mb-2 text-center">FORMATIONS &amp; STAGES D'AVENIR</h1>
+        {{$posts->links()}}
     <div class="row">
         <div class="col-12 col-md-8">
             <ul class="list-group">
@@ -17,17 +15,24 @@
                         <div class="col-8 col-sm-6">
                             @if(count($post->picture)>0)
                             <img class="img-thumbnail " src="{{url('images', $post->picture->link)}}" style="width: 300px"> @endif
-                            <a href="{{route('type', $post->post_type)}}"><h3>{{$post->post_type}}</h3></a>
+                            <a href="{{route('type', $post->post_type)}}">
+                                <h3>{{$post->post_type}}</h3>
+                            </a>
                             <div class="row">
-                                <div class="col-8 col-sm-4">
-                                    <p>{{$post->started}}</p>
-                                    <p>{{$post->ended}}</p>
+                                <div class="col-md-6">
+                                    <h4>Date de début :</h4> {{$post->started}}
                                 </div>
-                                <div class="col-8 col-sm-8" style="">
-                                    <p>Nombre d'inscrits : {{$post->student_max}}/25</p>
-                                    <p>TARIF : {{$post->price}} &euro;
-                                        <em>HT</em>
-                                    </p>
+                                <div class="col-md-6">
+                                    <h4>Date de fin :</h4> {{$post->ended}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>Places Disponibles :</h4> {{$post->student_max}}
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>TARIF :</h4> {{$post->price}} &euro;
+                                    <em>HT</em>
                                 </div>
                             </div>
                         </div>
@@ -41,18 +46,8 @@
                 @endforelse
             </ul>
         </div>
-        <div class="col-md-4">
-        <form action="search" method="POST" role="search">
-    {{ csrf_field() }}
-    <div class="input-group">
-        <input type="text" class="form-control" name="search"
-            placeholder="Search users"> <span class="input-group-btn">
-            <button type="submit" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span>
-            </button>
-        </span>
-    </div>
-</form>
+        <div class="col-md-3">
+        @include('partials.search')
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@
 */
 
 // page d'accueil
-Route::get('/', 'FrontController@index');
+Route::get('/', 'FrontController@index')->name('homepage');
 
 // route pour afficher un post, route sécurisée
 Route::get('post/{id}', 'FrontController@show')->name('show')->where(['id' => '[0-9]+']);
@@ -26,3 +26,11 @@ Route::post('contact',  'ContactController@mailToAdmin');
 // route pour la recherche
 Route::any('search', 'FrontController@search');
 
+
+// route back
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// routes sécurisées
+Route::resource('admin/post', 'PostController')->middleware('auth');
