@@ -48,8 +48,9 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3>Image :</h3>
+                    <h3>Image associée :</h3>
                     @if(count($post->picture)>0)
+                    <p>Title image : {{$post->picture->title}}</p>
                     <img class="img-thumbnail " src="{{url('images', $post->picture->link)}}" style="width: 300px"> @endif
                 </div>
             </div>

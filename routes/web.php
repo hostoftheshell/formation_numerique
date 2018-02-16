@@ -23,14 +23,21 @@ Route::get('type/{type}', 'FrontController@type')->name('type');
 Route::get('contact', 'ContactController@show')->name('contact');
 Route::post('contact',  'ContactController@mailToAdmin');
 
-// route pour la recherche
-Route::any('search', 'FrontController@search');
-
+// Route for user search
+Route::post('search', 'FrontController@search')->name('front.search');
+Route::get('/home', 'HomeController@index')->name('home');
 
 // route back
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-// routes sécurisées
-Route::resource('admin/post', 'PostController')->middleware('auth');
+// Routes Sécurisées
+Route::middleware(['auth'])->group(
+    function () {
+        Route::resource('admin/post', 'PostController');
+        Route::get('status/{id}', 'PostController@status')->name('status');
+        // Route for admin search
+        Route::post('admin/search', 'PostController@search')->name('back.search');
+        // deleteAll
+        Route::delete('postDeleteAll', 'PostController@deleteAll')->name('delete');
+    }
+);

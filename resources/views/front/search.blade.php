@@ -1,6 +1,9 @@
-@extends('layouts.master') @section('content') @if(isset($details))
+@extends('layouts.master') 
+@section('content') 
+
+@if(isset($details))
 <h2>Résultats pour votre recherche :
-    <b> {{ $query }} </b>
+    <b>{{$query}}</b>
 </h2>
 <div class="container">
     {{$details->appends(Request::only('search'))->links()}}
@@ -16,7 +19,8 @@
                     <div class='row'>
                         <div class="col-8 col-sm-6">
                             @if(count($user->picture)>0)
-                            <img class="img-thumbnail " src="{{url('images', $user->picture->link)}}" style="width: 300px"> @endif
+                            <img class="img-thumbnail " src="{{url('images', $user->picture->link)}}" style="width: 300px"> 
+                            @endif
                             <div class="row">
                                 <div class="col-md-4">
                                     <a href="{{route('type', $user->post_type)}}">
@@ -37,8 +41,7 @@
                                     <h4>Nombre d'inscrits :</h4> {{$user->student_max}}/25
                                 </div>
                                 <div class="col-md-6">
-                                    <h4>TARIF :</h4> {{$user->price}} &euro;
-                                    <em>HT</em>
+                                    <h4>TARIF :</h4> {{$user->price}} &euro;<em>HT</em>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +56,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            @include('partials.search')
+            @include('partials.searchBar')
         </div>
     </div>
 </div>
@@ -62,11 +65,12 @@
     <div class="col-md-6">
         <h3>Aucun résultat ne correspond à votre recherche.</h3>
         <br>
-        @include('partials.search')
+        @include('partials.searchBar')
         <br>
         <a href="{{url('/')}}">
             <span class="glyphicon glyphicon-chevron-left"></span>Retour à la page d'accueil</a>
     </div>
 </div>
 <br>
-@endif @endsection
+@endif 
+@endsection

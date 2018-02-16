@@ -1,4 +1,5 @@
-@extends('layouts.master') @section('content')
+@extends('layouts.master') 
+@section('content')
 <form action="{{route('post.update', $post->id)}}" method="post" enctype="multipart/form-data">
     {{csrf_field()}} {{method_field('PUT')}}
     <div class="container">
@@ -26,6 +27,7 @@
                                 </select>
                             </div>
                         </div>
+                        
                         {{-- End of input category --}}
                         <div class="form-group row">
                             <label for="description" class="col-sm-2 col-form-label">Description</label>
@@ -50,13 +52,14 @@
                         <div class="form-group row">
                             <label for="ended" class="col-sm-2 col-form-label">Date de fin</label>
                             <div class="col-sm-10">
-                                <input type="datetime-local" name="ended" value="{{$post->ended}}" placeholder="Date de fin"> @if($errors->has('ended'))
+                            <input type="datetime-local" name="ended" value="{{$post->ended}}" placeholder="Date de fin"> @if($errors->has('ended'))
                                 <span class="error" style="color : red;">
                                     {{$errors->first('ended')}}
                                 </span>
                                 @endif
                             </div>
                             {{-- End of input ended --}}
+                            
                         </div>
                         <div class="form-group row">
                             <label for="price" class="col-sm-2 col-form-label">Prix</label>
@@ -95,9 +98,23 @@
                         <br> {{-- End of input status --}}
                         <div class="custom-file">
                             <label class="custom-file-label" for="validatedCustomFile">S&eacute;lectionner une image</label>
-                            <input type="file" name="picture" class="file">@if($errors->has('picture'))
+                            <input type="file" name="picture" class="file" src="{{url('images', $post->picture->link)}}">@if($errors->has('picture'))
                             <span class="invalid-feedback">{{$errors->first('picture')}}</span>@endif
                         </div>
+                        
+                        @if($post->picture)
+                        <div class="form-group">
+            <div class="col-sm">
+                <h3>Image associée :</h3>
+                <label for="title_image">Title image :</label>
+                <input type="text" name="title_image" value="{{$post->picture->title}}">
+            </div>
+            <div class="form-group">
+            <img width="300" src="{{url('images', $post->picture->link)}}" alt="">
+            </div>
+            </div>
+            @endif
+
                         {{-- End of input picture --}}
                     </li>
                     <br>
@@ -109,6 +126,13 @@
             </div>
         </div>
     </div>
-</form>
+    </div>
+  <br>
+  </form>
 
+
+@endsection
+@section('scripts')
+    @parent
+    
 @endsection

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
+use App\Post;
 use Illuminate\Http\Request;
 use App\Notifications\InboxMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactFormRequest;
-use App\Admin;
-use App\Post;
 
 class ContactController extends Controller
 {

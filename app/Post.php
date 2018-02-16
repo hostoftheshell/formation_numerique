@@ -2,9 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use App\Category;
 use Carbon\Carbon;
+use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+
+
+
 
 
 class Post extends Model
@@ -21,6 +26,23 @@ class Post extends Model
         'student_max',
         'category_id',
         ];
+        
+        use Sortable;
+        
+    public $sortable 
+        =[
+        'title', 
+         
+        'post_type',
+        'status', 
+        'started', 
+        'ended',
+        'price',
+        'student_max',
+        'category_id',
+        ];
+
+
     
     /**
      * Relation 1:n with Category
@@ -59,14 +81,25 @@ class Post extends Model
        
         return Carbon::parse($value)->format('d/m/Y');
     }
-    
-    // public function getStatusAttribute($value)
-    // {
-    //     return $this->attributes['status'];
-    // }
-    // public function setStatusAttribute($value)
-    // {
-    //     $this->attributes['$post->status'] = ($value);
-    // }
-}
 
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'published');
+    }
+
+    public function scopeSearch($query, $search)
+    {
+       
+        return $query->where('post_type', 'LIKE', '%' .$search. '%')
+            ->orwhere('title', 'LIKE', '%'.$search.'%')
+            ->orWhere('description', 'LIKE', '%' .$search. '%')
+            ->orWhereHas( // Select * FROM Post where category_id IN (SELECT id FROM Categories WHERE name LIKE '%' $search '%';)
+                'category', function ($searchForeignKey) use (
+                    $search
+                ) { 
+                    // use pour faire passer la var à la requête/function (courtesy Vinciane)
+                    return $searchForeignKey->where('name', 'LIKE', '%'.$search.'%');
+                }
+            );
+    }
+}

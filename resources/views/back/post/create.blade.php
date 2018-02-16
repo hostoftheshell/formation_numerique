@@ -16,8 +16,8 @@
                         </div>
                         {{-- End of input title --}}
                         <div class="form-group row">
-                            <label for="title">Intitul&eacute;</label>
-                            <div class="col-sm-4">
+                            <label for="category_id" class="col-sm-2 col-form-label">Intitul&eacute;</label>
+                            <div class="col-sm-6">
                                 <select class="form-control" name="category_id" id="category_id">
                                     <option value="0" {{ is_null(old( 'category_id'))? 'selected' : '' }}>Pas d&apos;intitul&eacute;</option>
                                     @foreach($categories as $id => $name)
@@ -86,6 +86,7 @@
                             <p class="error bg-warning text-warning">{{$errors->first('picture')}}</p>@endif
                         </div>
                     </li>
+                    <br>
                     <div class="col-12 col-sm-6">
                         <button type="submit" class="btn btn-primary">Ajouter un Post</button>
                     </div>
@@ -94,4 +95,5 @@
         </div>
     </div>
 </form>
+<br>
 @endsection

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Post;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Controllers\TraitSearch;
+// use Illuminate\Support\Facades\Input;
 
 class FrontController extends Controller
 {
+
+    use TraitSearch;
+
     public function __construct()
     {   
             view()->composer(
@@ -16,11 +21,23 @@ class FrontController extends Controller
                     $view->with('types', $types); 
                 }
             );
+
+            $this->viewSearch = 'front.search'; // récupérer dans ton trait
     }
     
     public function index()
     {
-        $posts = Post::orderBy('started', 'asc')->paginate(2);
+        $prefix = request()->page?? '1';
+        $key = 'post' . $prefix;
+
+        $posts = Cache::remember(
+            $key, 60*24, function () {
+                return Post::published()
+                    ->with('picture', 'category')
+                    ->orderBy('started', 'asc')
+                    ->paginate(2);
+            }
+        );
         
         return view('front.index', ['posts' => $posts]);
     }
@@ -34,27 +51,11 @@ class FrontController extends Controller
 
     public function type(string $type)
     {
-        $posts = Post::where('post_type', $type)
-            ->orderBy('started', 'asc')->paginate(2);
+        $posts = Post::where('post_type', $type)->published()
+            ->with('picture', 'category')
+            ->orderBy('started', 'asc')
+            ->paginate(2);
         
             return  view('front.type', ['posts' => $posts, 'type' => $type]);  
-    }
-
-    public function search()
-    {
-        $search = Input::get('search');
-        
-        $user = Post::where('post_type', 'LIKE', '%' .$search. '%')
-            ->orwhere('title', 'LIKE', '%'.$search.'%')
-            ->orWhere('description', 'LIKE', '%' .$search. '%')->paginate(2);
-        
-            if (count($user) > 0) {
-            return view('front.search', ['user' => $user])->withDetails($user)->withQuery($search);
-        
-        } else { 
-            
-            return view('front.search')->withMessage('No Details found. Try to search again !');
-        }
-
     }
 }

@@ -1,4 +1,5 @@
-@extends('layouts.master') @section('content')
+@extends('layouts.master') 
+@section('content')
 <div class=container>
 <h1 class="mb-2 text-center">Nos {{(ucfirst($type))}}s</h1>
     {{$posts->links()}}
@@ -35,7 +36,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            @include('partials.search')
+            @include('partials.searchBar')
         </div>
     </div>
 </div>

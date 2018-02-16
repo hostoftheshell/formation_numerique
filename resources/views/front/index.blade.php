@@ -1,4 +1,6 @@
-@extends('layouts.master') @section('content')
+@extends('layouts.master') 
+
+@section('content')
 <div class=container>
 <h1 class="mb-2 text-center">FORMATIONS &amp; STAGES D'AVENIR</h1>
         {{$posts->links()}}
@@ -47,7 +49,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-        @include('partials.search')
+        @include('partials.searchBar')
         </div>
     </div>
 </div>
