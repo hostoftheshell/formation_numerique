@@ -1,11 +1,8 @@
 $(document).ready(function () {
-
-
+    
     $('#master').on('click', function (e) {
-
-        if ($(this).is(':checked', true))
-
-        {
+        
+        if ($(this).is(':checked', true)){
 
             $(".sub_chk").prop('checked', true);
 
@@ -19,7 +16,6 @@ $(document).ready(function () {
 
 
     $('.delete_all').on('click', function (e) {
-
 
         var allVals = [];
 
@@ -60,6 +56,9 @@ $(document).ready(function () {
                     data: 'ids=' + join_selected_values,
 
                     success: function (data) {
+
+
+                        console.log(data)
 
                         if (data['success']) {
 

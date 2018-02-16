@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\TraitSearch;
-// use Illuminate\Support\Facades\Input;
+
 
 class FrontController extends Controller
 {

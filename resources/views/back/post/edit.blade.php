@@ -97,6 +97,10 @@
                         </div>
                         <br> {{-- End of input status --}}
                         <div class="custom-file">
+                            <label for="title_image">Title image :</label>
+                            
+                            <input type="text" name="title_image" id="title_image" class="form-control" value="{{ !empty(old('title_image')) ? old('title_image') : $post->picture->title }}" placeholder="Titre de l'image">
+                            
                             <label class="custom-file-label" for="validatedCustomFile">S&eacute;lectionner une image</label>
                             <input type="file" name="picture" class="file" src="{{url('images', $post->picture->link)}}">@if($errors->has('picture'))
                             <span class="invalid-feedback">{{$errors->first('picture')}}</span>@endif
@@ -105,9 +109,7 @@
                         @if($post->picture)
                         <div class="form-group">
             <div class="col-sm">
-                <h3>Image associée :</h3>
-                <label for="title_image">Title image :</label>
-                <input type="text" name="title_image" value="{{$post->picture->title}}">
+                <h3>Image associée : {{$post->picture->title}}</h3>
             </div>
             <div class="form-group">
             <img width="300" src="{{url('images', $post->picture->link)}}" alt="">

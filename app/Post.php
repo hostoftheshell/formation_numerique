@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 
-
-
-
 class Post extends Model
 {
     protected $fillable     
@@ -25,14 +22,14 @@ class Post extends Model
         'price',
         'student_max',
         'category_id',
+       
         ];
         
         use Sortable;
         
     public $sortable 
         =[
-        'title', 
-         
+        'title',  
         'post_type',
         'status', 
         'started', 
@@ -94,12 +91,11 @@ class Post extends Model
             ->orwhere('title', 'LIKE', '%'.$search.'%')
             ->orWhere('description', 'LIKE', '%' .$search. '%')
             ->orWhereHas( // Select * FROM Post where category_id IN (SELECT id FROM Categories WHERE name LIKE '%' $search '%';)
-                'category', function ($searchForeignKey) use (
-                    $search
-                ) { 
+                'category', function ($Key) use ($search) { 
                     // use pour faire passer la var à la requête/function (courtesy Vinciane)
-                    return $searchForeignKey->where('name', 'LIKE', '%'.$search.'%');
+                    return $Key->where('name', 'LIKE', '%'.$search.'%');
                 }
             );
     }
+    
 }

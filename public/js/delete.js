@@ -60,20 +60,20 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 45);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 45:
+/***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(46);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
 
-/***/ 46:
+/***/ 39:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
@@ -122,6 +122,8 @@ $(document).ready(function () {
                     data: 'ids=' + join_selected_values,
 
                     success: function success(data) {
+
+                        console.log(data);
 
                         if (data['success']) {
 

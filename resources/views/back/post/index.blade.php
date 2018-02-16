@@ -7,7 +7,6 @@
 </div>
 
 @include('back.partials.searchBar')
-
 {{$posts->links()}} 
 @if(Session::has('message'))
 <div class="alert">
@@ -43,7 +42,7 @@
         @foreach($posts as $key => $post)
         
         <tr class="mb-2 text-center" id="tr_{{$post->id}}" content="{{csrf_token()}}">
-            <td><input type="checkbox" class="sub_chk" data-id=>{{$post->id}}</td>
+            <td><input type="checkbox" class="sub_chk" data-id="{{$post->id}}">{{$post->id}}</td>
             <td>
                 <a href="{{route('post.edit', $post->id)}}">{{$post->title}}</a>
             </td>

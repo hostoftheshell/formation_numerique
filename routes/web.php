@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(
         Route::resource('admin/post', 'PostController');
         Route::get('status/{id}', 'PostController@status')->name('status');
         // Route for admin search
-        Route::post('admin/search', 'PostController@search')->name('back.search');
+        Route::any('admin/search', 'PostController@search')->name('back.search');
         // deleteAll
         Route::delete('postDeleteAll', 'PostController@deleteAll')->name('delete');
     }

@@ -33,7 +33,8 @@ class PostRequest extends FormRequest
             'student_max'   => 'required|integer|min:0',
             'post_type'     => 'in:stage|formation',
             'status'        => 'in:published,unpublished',
-            'picture'       => 'required|image|mimes:jpeg,png,jpg,gif|max:2048' 
+            'picture'       => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'title_image'   => 'string|nullable'
         ];
     }
 }

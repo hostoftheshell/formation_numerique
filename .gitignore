@@ -1,6 +1,8 @@
+/bootstrap/compiled.php
 /node_modules
 /public/hot
 /public/storage
+/public/images
 /storage/*.key
 /vendor
 /.idea
@@ -9,4 +11,11 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+composer.phar
+composer.lock
 .env
+.env.*.php
+.env.php
+.DS_Store
+workspace.xml
+Thumbs.db

@@ -8,9 +8,9 @@ use Storage;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
-// use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\TraitSearch;
+
 
 
 class PostController extends Controller
@@ -63,13 +63,13 @@ class PostController extends Controller
     {
         // Hydratation des inputs (post) et enregistrement dans la Bdd
         $post = Post::create($request->all()); // associés aux fillables dans la classe POST
-
+        
         $image = $request->file('picture');
 
         if (!empty($image)) {
             $image = $request->file('picture');
             $link = $image->store('./');
-        
+           
             $post->picture()->create(
                 [ 
                 'link'  => $link,
@@ -121,7 +121,7 @@ class PostController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::find($id); // associé les fillables
-
+        
         $post->update($request->all());
 
         $image = $request->file('picture');
@@ -154,20 +154,51 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
         $post = Post::find($id);
         
         $post->delete();
+        
+        if (!empty($image)) {
+            
+            $link = $request->file('picture')->store('./');
+            if (count($post->picture)>0) {
+                Storage::disk('local')->delete($post->picture->link); // supprimer physiquement l'image
+                $post->picture()->delete(); // supprimer l'information en base de données
+            }
+            
+        }
+        
         Artisan::call('cache:clear');
+        
         return redirect()->route('post.index')->with('message', "L'article été supprimé avec succès");
+
     }
 
     public function deleteAll(Request $request)
     {
         $ids = $request->ids;
-        Post::whereIn('id', explode(",", $ids))->delete();
+
+        $ids = explode(',', $ids);
+
+        Post::destroy($ids);
+
+        if (!empty($image)) {
+            
+            $link = $request->file('picture')->store('./');
+            if (count($post->picture)>0) {
+                Storage::disk('local')->delete($post->picture->link); // supprimer physiquement l'image
+                $post->picture()->delete(); // supprimer l'information en base de données
+            }
+            
+        }
         
-        return response()->json(['success'=>"Products Deleted successfully."]);
+        return response()->json(
+            [
+                'success'=>"Products Deleted successfully.",
+                'error' => 'Error deleted'
+            ] 
+        );
+        
     }
 
     public function status($id, Request $request)
@@ -181,4 +212,10 @@ class PostController extends Controller
         
         return redirect()->route('post.index');
     }
+    
+   
+
+    
+
+
 }

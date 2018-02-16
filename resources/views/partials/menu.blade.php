@@ -17,7 +17,7 @@
         <li class="nav-item">
           <a class="nav-link active" href="{{url('/')}}">Accueil</a>
         </li>
-        @if(Route::is('post.*')&&('lol') == false) 
+        @if(!(Auth::check()) )
         @forelse($types as $id => $type)
         <li class="nav-item">
           <a class="nav-link" href="{{route('type', $type)}}">{{ucfirst($type)}}</a>

@@ -24,21 +24,21 @@
     <thead>
         <tr>
             <th class="text-center"><input type="checkbox" id="master"></th>
-            <th class="text-center">Titre</th>
-            <th class="text-center">Type</th>
-            <th class="text-center">Intitul&eacute;</th>
-            <th class="text-center">Places disponibles</th>
-            <th class="text-center">Prix</th>
-            <th class="text-center">Date de d&eacute;but</th>
-            <th class="text-center">Date de fin</th>
-            <th class="text-center">Statut</th>
+            <th class="text-center">@sortablelink('title', 'Titre')</th>
+            <th class="text-center">@sortablelink('post_type', 'Type')</th>
+            <th class="text-center">@sortablelink('category.name', 'Intitulé')</th>
+            <th class="text-center">@sortablelink('student_max', 'Places disponibles')</th>
+            <th class="text-center">@sortablelink('price', 'Prix')</th>
+            <th class="text-center">@sortablelink('started', 'Date de début')</th>
+            <th class="text-center">@sortablelink('ended', 'Date de fin')</th>
+            <th class="text-center">@sortablelink('status', 'Statut')</th>
             <th class="text-center">Afficher</th>
             <th class="text-center">&Eacute;diter</th>
             <th class="text-center">Supprimer</th>
         </tr>
     </thead>
     <tbody>
-        @forelse($details as $user)
+        @foreach($details as $key => $user)
         <tr class="mb-2 text-center" id="tr_{{$user->id}}" content="{{csrf_token()}}">
         <td><input type="checkbox" class="sub_chk" data-id=>{{$user->id}}</td>
             <td>
@@ -75,14 +75,15 @@
                 </form>
             </td>
         </tr>
-        @empty 
-        <tr>
-            <td>aucun titre</td>
-        </tr>
-        @endforelse
+       
+        @endforeach
+        @endif
     </tbody>
 </table>
-@endif
+{!! $details->appends(\Request::except('page'))->render() !!}
+
+
+
 @endsection
 
 @section('scripts')

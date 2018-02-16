@@ -2,6 +2,5 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/js/delete.js": "/js/delete.js",
-    "/js/confirm.js": "/js/confirm.js",
-    "/js/datetimepicker.js": "/js/datetimepicker.js"
+    "/js/confirm.js": "/js/confirm.js"
 }
